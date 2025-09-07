@@ -37,6 +37,20 @@
     }
 
 
+    /* Mobile: wrap nav items into two neat rows */
+    @media (max-width:640px){
+    .nav{ height:auto; padding:8px 12px 10px; } /* let it expand */
+    .menu{
+        display:flex; flex-wrap:wrap; gap:8px 10px;
+        width:100%;
+    }
+    .menu .btn{ padding:6px 10px; border-radius:10px; }
+    .menu .btn::before{ padding:1.5px; }
+    .nav a{ margin-left:0; font-size:14px; }
+}
+
+
+
     /* NAV */
     .nav{position:fixed; inset:0 0 auto 0; height:64px; display:flex; justify-content:space-between; align-items:center; padding:0 22px; background:rgba(11,12,16,.85); backdrop-filter:blur(10px); z-index:50; border-bottom:1px solid rgba(255,255,255,.15)}
     .nav a{color:var(--ink); text-decoration:none; margin-left:18px; opacity:.85}
@@ -141,7 +155,7 @@
     footer{text-align:center; padding:40px 20px; color:var(--muted)}
   </style>
 </head>
-<body>
+<body>  
   <div class="nav">
     <div class="logo">Loh Jia Yao</div>
     <div class="menu"></div>
