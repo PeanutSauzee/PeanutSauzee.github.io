@@ -48,7 +48,24 @@
     .timeline .row{padding:16px 16px 16px 28px; border-left:2px solid var(--line); margin-left:8px; position:relative}
     .timeline .row:before{content:""; position:absolute; left:-7px; top:20px; width:12px; height:12px; background:#7aa2ff; border-radius:50%}
     footer{text-align:center; padding:40px 20px; color:var(--muted)}
-  </style>
+      /* Hide top-bar quick actions; we'll show CTAs in the hero */
+    .nav .actions{display:none}
+
+    /* Hero intro split */
+    .hero-split{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center}
+    @media (max-width:900px){.hero-split{grid-template-columns:1fr}}
+    .hero-title{font-size:clamp(40px,7vw,88px); line-height:1.02; letter-spacing:-.02em; margin:0 0 10px}
+    .hero-lead{font-size:clamp(16px,2.2vw,22px); color:var(--muted)}
+
+    /* Hero CTAs */
+    .cta{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; border:1px solid var(--line); text-decoration:none; color:var(--ink); background:linear-gradient(120deg,#7aa2ff22,#00d1b222); transition:transform .2s ease, box-shadow .2s ease}
+    .cta:hover{transform:translateY(-2px); box-shadow:0 0 22px rgba(122,162,255,.35)}
+    .cta.secondary{background:linear-gradient(120deg,#ff2e7e22,#ff980022)}
+
+    /* Hero headshot */
+    .headshot{width:min(420px,90%); aspect-ratio:1/1; border-radius:22px; object-fit:cover; border:2px solid transparent; background:linear-gradient(var(--glass),var(--glass)) padding-box, linear-gradient(120deg,#7aa2ff,#9b4dff,#ff2e7e,#ff9800,#00d1b2) border-box; box-shadow:var(--shadow)}
+
+</style>
 </head>
 <body>
   <div class="nav">
@@ -69,13 +86,24 @@
 
   <section class="panel" id="about">
     <div class="inner">
-      <h1>Operations & Security Manager<br>NTU Cybersecurity Undergraduate</h1>
-      <p class="lead">Cheerful, outgoing, and collaborative. With 6+ years of work experience, including 2+ years in operations management, and a background in the Singapore Police Force Special Operations Command, I am now specialising in cybersecurity with a focus on project management and governance roles.</p>
-      <div class="strip">
-        <div class="stat glow-border"><b>6+ years</b>Work experience</div>
-        <div class="stat glow-border"><b>2+ years</b>Operations management</div>
-        <div class="stat glow-border"><b>SPF SOC</b>Security background</div>
-        <div class="stat glow-border"><b>Security+</b>Ongoing certification</div>
+      <div class="hero-split">
+        <div>
+          <h1 class="hero-title">Hello! I’m Jia Yao.</h1>
+          <p class="hero-lead">Cheerful, outgoing and collaborative Operations & Security Manager with <b>6+ years</b> of experience (including <b>2+ years</b> in operations management). Former <b>Singapore Police Force — Special Operations Command</b>. Now an NTU Computing (Cybersecurity) undergraduate, specialising in <b>cybersecurity governance, risk</b> and <b>project coordination</b> — not hands‑on coding.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px">
+            <a class="cta glow-border" href="resume.pdf" download>⬇️ Download CV</a>
+            <a class="cta secondary glow-border" href="mailto:lohjiayao@gmail.com">✉️ Email me</a>
+            <a class="cta glow-border" href="#contact">💬 Get in touch</a>
+          </div>
+          <div class="strip" style="margin-top:18px">
+            <div class="stat glow-border"><b>Full‑stack exposure</b>Front‑end · Back‑end · DB</div>
+            <div class="stat glow-border"><b>Cybersecurity focus</b>Governance · Risk · Compliance</div>
+            <div class="stat glow-border"><b>Security+</b>In progress (Q4 2025)</div>
+          </div>
+        </div>
+        <div style="display:grid; place-items:center">
+          <img class="headshot" src="profile.jpg" alt="Photo of Loh Jia Yao" />
+        </div>
       </div>
     </div>
   </section>
