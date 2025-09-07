@@ -14,6 +14,29 @@
     html{scroll-behavior:smooth}
     body{margin:0; background:var(--bg); color:var(--ink); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Inter,Arial}
 
+    /* Desktop keeps existing layout; mobile gets a tidy, scrollable menu */
+    .menu{
+    display:flex; gap:10px; align-items:center; flex-wrap:nowrap;
+    }
+
+    /* Mobile nav fix */
+    @media (max-width: 640px){
+    .nav{ height:auto; padding:8px 12px; }            /* let it size to content */
+    .logo{ font-size:14px; line-height:1; }           /* smaller brand on phones */
+    .menu{
+        overflow-x:auto; -webkit-overflow-scrolling:touch;
+        white-space:nowrap; gap:8px; padding-bottom:6px; /* keep items above border */
+        width:100%;
+    }
+    .menu::-webkit-scrollbar{ display:none; }          /* hide iOS/Chrome scrollbar */
+
+    /* Compact the buttons a bit on phones so they don't feel cramped */
+    .menu .btn{ padding:6px 10px; border-radius:10px; }
+    .menu .btn::before{ padding:1.5px; }               /* thinner outline looks cleaner small */
+    .nav a{ margin-left:0; font-size:14px; }           /* smaller link text */
+    }
+
+
     /* NAV */
     .nav{position:fixed; inset:0 0 auto 0; height:64px; display:flex; justify-content:space-between; align-items:center; padding:0 22px; background:rgba(11,12,16,.85); backdrop-filter:blur(10px); z-index:50; border-bottom:1px solid rgba(255,255,255,.15)}
     .nav a{color:var(--ink); text-decoration:none; margin-left:18px; opacity:.85}
@@ -121,7 +144,7 @@
 <body>
   <div class="nav">
     <div class="logo">Loh Jia Yao</div>
-    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+    <div class="menu"></div>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#profile">Profile</a>
