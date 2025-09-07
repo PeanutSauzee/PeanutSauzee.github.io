@@ -13,9 +13,7 @@
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0; background:var(--bg); color:var(--ink);
-         font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Inter,Arial;
-         scroll-snap-type:y mandatory;}
+    body{margin:0; background:#0b0c10; color:var(--ink); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Inter,Arial; scroll-snap-type:y mandatory;}
     .nav{position:fixed; top:0; left:0; right:0; height:64px; display:flex; justify-content:space-between; align-items:center; padding:0 22px; background:rgba(11,12,16,.85); backdrop-filter:blur(10px); z-index:50; border-bottom:1px solid var(--line)}
     .nav a{color:var(--ink); text-decoration:none; margin-left:18px; opacity:.85}
     .nav a:hover{opacity:1}
@@ -29,7 +27,8 @@
     .stat{padding:18px; border-radius:16px; background:var(--glass); border:1px solid var(--line); text-align:center}
     .stat b{font-size:26px}
     .card{background:var(--glass); border:1px solid var(--line); border-radius:20px; padding:22px; box-shadow:var(--shadow); margin-bottom:20px}
-    .timeline .row{padding:16px 16px 16px 28px; border-left:2px solid var(--line); margin-left:8px; position:relative}
+    .timeline .row{padding:16px 16px 16px 28px; border-left:2px solid var(--line); margin-left:8px; position:relative; border-radius:14px; transition:transform .18s ease, box-shadow .18s ease}
+    .timeline .row.ai-outline::before{ inset:-2px }
     .timeline .row:before{content:""; position:absolute; left:-7px; top:20px; width:12px; height:12px; background:var(--brand); border-radius:50%}
     footer{text-align:center; padding:40px 20px; color:var(--muted)}
     /* Buttons in nav */
@@ -49,6 +48,19 @@
     /* Give cards the same hover flair */
     .card.ai-outline:hover{ box-shadow: 0 30px 100px rgba(0,0,0,.55) }
 
+  /* Buttons in nav */
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:12px; border:1px solid var(--line); text-decoration:none; color:var(--ink); background:transparent}
+
+    /* Apple-Intelligence style outline/glow for boxes only */
+    :root{ --ai: conic-gradient(from 180deg, #6d4aff, #7aa2ff, #67e8f9, #f59e0b, #ec4899, #6d4aff) }
+    .ai-outline{ position:relative; isolation:isolate; }
+    .ai-outline::before{ content:""; position:absolute; inset:-1px; border-radius:inherit; background:var(--ai); filter: blur(10px); opacity:.25; z-index:-1; transition:opacity .2s, filter .2s }
+    .ai-outline:hover::before{ opacity:.6; filter: blur(16px) }
+
+    /* Interactive boxes */
+    .stat, .card, .timeline .row{ position:relative; }
+    .stat:hover, .card:hover, .timeline .row:hover{ transform: translateY(-2px) scale(1.01); box-shadow: 0 20px 60px rgba(0,0,0,.45) }
+
 </style>
 </head>
 <body>
@@ -57,33 +69,28 @@
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-      <!-- Quick actions at the top -->
+      <a href="#profile">Profile</a>
+      <!-- Quick actions also available in About -->
       <a class="btn" href="resume.pdf" download>⬇️ CV</a>
       <a class="btn secondary" href="mailto:lohjiayao@gmail.com">✉️ Email</a>
-      <a class="btn" href="#contact">💬 Contact</a>
-    </div>
-  </div>
-    <div>
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+      <a class="btn" href="#about">💬 Contact</a>
     </div>
   </div>
 
   <section class="panel" id="about">
     <div class="inner">
-      <h1>Operations & Security Manager<br>NTU Cybersecurity Undergraduate</h1>
-      <p class="lead">6+ years of work experience, including 2+ years in operations management. Former Singapore Police Force (Special Operations Command) officer. Now pursuing Computing (Cybersecurity specialisation) at NTU.</p>
+      <h1 style="font-size:clamp(40px,7vw,86px); line-height:1.05; margin-bottom:6px">Hello! I’m Jia Yao.</h1>
+      <p class="lead">Operations & Security Manager with <b>6+ years</b> of experience (including <b>2+ years</b> in operations management). Former officer at the Singapore Police Force — Special Operations Command. Currently an NTU Computing undergraduate (Cybersecurity specialisation). I’m pivoting toward <b>project management</b> and <b>cybersecurity governance / IT risk</b>, leveraging hands-on operations and incident response experience.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 22px">
+        <a class="btn" href="resume.pdf" download>⬇️ Download CV</a>
+        <a class="btn secondary" href="mailto:lohjiayao@gmail.com">✉️ Email</a>
+        <a class="btn" href="#about">💬 Contact</a>
+      </div>
       <div class="strip">
-        <div class="stat ai-outline"><b>6+ years</b><br>Work experience</div>
-        <div class="stat ai-outline"><b>2+ years</b><br>Operations management</div>
+        <div class="stat ai-outline"><b>6+ yrs</b><br>Work experience</div>
+        <div class="stat ai-outline"><b>2+ yrs</b><br>Ops management</div>
+        <div class="stat ai-outline"><b>SPF — SOC</b><br>Security ops background</div>
         <div class="stat ai-outline"><b>NTU</b><br>Cybersecurity student</div>
-        <div class="stat ai-outline"><b>Security+</b><br>Certification in progress</div>
       </div>
     </div>
   </section>
@@ -92,17 +99,17 @@
     <div class="inner">
       <h2>Professional Experience</h2>
       <div class="timeline">
-        <div class="row">
+        <div class="row ai-outline">
           <h3>Operations Manager — HSA (via WSH Experts)</h3>
           <small>Jul 2025 – Present</small>
           <p>Manage daily ground operations across HSA facilities. Coordinate enforcement actions, audits, compliance tracking, and digitalisation initiatives. Lead SOP updates and staff training.</p>
         </div>
-        <div class="row">
+        <div class="row ai-outline">
           <h3>Duty Operations & Security Officer — SPF, SOC</h3>
           <small>Jun 2022 – May 2024</small>
           <p>Oversaw daily Special Operations Command deployments. Directed security planning and risk assessments for national events (F1, NYE). Coordinated incident response and supervised teams.</p>
         </div>
-        <div class="row">
+        <div class="row ai-outline">
           <h3>Armed Strike Team Operator — SPF, SOC PTU</h3>
           <small>Dec 2018 – May 2019</small>
           <p>Operated in high-risk tactical deployments. Implemented digital transformation projects for equipment tracking. Enhanced readiness through SOPs and training improvements.</p>
@@ -111,43 +118,30 @@
     </div>
   </section>
 
-  <section class="panel" id="education">
-    <div class="inner">
-      <h2>Education</h2>
-      <div class="card ai-outline">
-        <b>Bachelor of Technology in Computing (Cybersecurity)</b><br>
-        Nanyang Technological University — 2024–Present (Expected 2028)
-      </div>
-      <div class="card ai-outline">
-        <b>Diploma in Mechatronics</b><br>
-        Temasek Polytechnic — 2015–2018
-      </div>
-    </div>
-  </section>
+  
 
-  <section class="panel" id="skills">
-    <div class="inner">
-      <h2>Skills & Competencies</h2>
-      <div class="card ai-outline">
-        <b>Cybersecurity & Risk:</b> Incident response, IT governance, compliance.<br>
-        <b>Operations Management:</b> Crisis management, business continuity, audits.<br>
-        <b>Technical Exposure:</b> Full‑stack knowledge (front‑end, back‑end, database).<br>
-        <b>Leadership & Strategy:</b> Project management, stakeholder coordination, training.
-      </div>
-      <div class="card ai-outline">
-        <b>Certifications:</b><br>
-        • CompTIA Security+ (in progress, Q4 2025)<br>
-        • ISO 27001 Lead Implementer (planned)<br>
-        • ITIL Foundation (planned)
-      </div>
-    </div>
-  </section>
+  
 
-  <section class="panel" id="contact">
+  <section class="panel" id="profile">
     <div class="inner">
-      <h2>About Me</h2>
-      <p class="lead">Cheerful, outgoing, and collaborative. I aim to transition into project management and cybersecurity governance roles, leveraging my operational leadership and security background.</p>
-      <div class="card ai-outline">📧 lohjiayao@gmail.com<br>📱 +65 9638 3359<br>📍 Tampines, Singapore</div>
+      <h2>Profile</h2>
+      <div class="card ai-outline" style="margin-bottom:18px">
+        <h3 style="margin:0 0 8px">Education</h3>
+        <p><b>B.Tech in Computing (Cybersecurity)</b> — Nanyang Technological University, 2024–Present (Expected 2028)</p>
+        <p><b>Diploma in Mechatronics</b> — Temasek Polytechnic, 2015–2018</p>
+      </div>
+      <div class="card ai-outline" style="margin-bottom:18px">
+        <h3 style="margin:0 0 8px">Skills & Competencies</h3>
+        <p><b>Cybersecurity & Risk:</b> Incident response, risk assessment, IT governance, compliance.</p>
+        <p><b>Operations / PM:</b> Project coordination, stakeholder management, audits, business continuity.</p>
+        <p><b>Full‑stack Exposure:</b> Front‑end, back‑end, databases (foundation level).</p>
+        <p><b>Personality:</b> Jovial, cheerful, outgoing collaborator.</p>
+      </div>
+      <div class="card ai-outline">
+        <h3 style="margin:0 0 8px">Certifications</h3>
+        <p>CompTIA Security+ (in progress, target Q4 2025)</p>
+        <p>Planned: ISO 27001 Lead Implementer, ITIL Foundation</p>
+      </div>
     </div>
   </section>
 
