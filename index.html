@@ -65,6 +65,28 @@
     /* Hero headshot */
     .headshot{width:min(420px,90%); aspect-ratio:1/1; border-radius:22px; object-fit:cover; border:2px solid transparent; background:linear-gradient(var(--glass),var(--glass)) padding-box, linear-gradient(120deg,#7aa2ff,#9b4dff,#ff2e7e,#ff9800,#00d1b2) border-box; box-shadow:var(--shadow)}
 
+    /* Animated Apple‑style glow (mix of rotate + breathe) */
+    .ai-glow{ position:relative; isolation:isolate; }
+    .ai-glow::before{
+      content:""; position:absolute; inset:-2px; border-radius:inherit; z-index:-1;
+      background:
+        conic-gradient(from 0deg, #6d4aff, #7aa2ff, #67e8f9, #f59e0b, #ec4899, #6d4aff);
+      filter: blur(14px); opacity:.35;
+      transform: rotate(0deg);
+      animation: ai-spin 24s linear infinite, ai-breathe 8s ease-in-out infinite;
+      will-change: transform, opacity, filter;
+      pointer-events:none;
+    }
+    .ai-glow:hover::before, .ai-glow:focus-within::before{ opacity:.65; filter: blur(18px); }
+
+    @keyframes ai-spin{ to { transform: rotate(360deg); } }
+    @keyframes ai-breathe{ 0%,100%{ opacity:.30; filter: blur(12px); } 50%{ opacity:.55; filter: blur(20px); } }
+
+    /* Motion-safe fallback */
+    @media (prefers-reduced-motion: reduce){
+      .ai-glow::before{ animation: ai-breathe 10s ease-in-out infinite; }
+    }
+
 </style>
 </head>
 <body>
@@ -96,13 +118,13 @@
             <a class="cta glow-border" href="#contact">💬 Get in touch</a>
           </div>
           <div class="strip" style="margin-top:18px">
-            <div class="stat glow-border"><b>Full‑stack exposure</b>Front‑end · Back‑end · DB</div>
-            <div class="stat glow-border"><b>Cybersecurity focus</b>Governance · Risk · Compliance</div>
-            <div class="stat glow-border"><b>Security+</b>In progress (Q4 2025)</div>
+            <div class="stat glow-border ai-glow"><b>Full‑stack exposure</b>Front‑end · Back‑end · DB</div>
+            <div class="stat glow-border ai-glow"><b>Cybersecurity focus</b>Governance · Risk · Compliance</div>
+            <div class="stat glow-border ai-glow"><b>Security+</b>In progress (Q4 2025)</div>
           </div>
         </div>
         <div style="display:grid; place-items:center">
-          <img class="headshot" src="profile.jpg" alt="Photo of Loh Jia Yao" />
+          <img class="headshot ai-glow" src="profile.jpg" alt="Photo of Loh Jia Yao" />
         </div>
       </div>
     </div>
@@ -134,10 +156,10 @@
   <section class="panel" id="education">
     <div class="inner">
       <h2>Education</h2>
-      <div class="card glow-border">
+      <div class="card glow-border ai-glow">
         <b>Bachelor of Technology in Computing (Cybersecurity)</b><br>NTU — 2024–Present (Expected 2028)
       </div>
-      <div class="card glow-border">
+      <div class="card glow-border ai-glow">
         <b>Diploma in Mechatronics</b><br>Temasek Polytechnic — 2015–2018
       </div>
     </div>
@@ -146,13 +168,13 @@
   <section class="panel" id="skills">
     <div class="inner">
       <h2>Skills & Certifications</h2>
-      <div class="card glow-border">
+      <div class="card glow-border ai-glow">
         <b>Cybersecurity & Risk:</b> Incident response, IT governance, compliance<br>
         <b>Operations Management:</b> Crisis management, business continuity<br>
         <b>Technical Exposure:</b> Full-stack (frontend, backend, database)<br>
         <b>Leadership & Strategy:</b> Project management, stakeholder coordination
       </div>
-      <div class="card glow-border">
+      <div class="card glow-border ai-glow">
         <b>Certifications:</b><br>
         • CompTIA Security+ (in progress, Q4 2025)<br>
         • ISO 27001 Lead Implementer (planned)<br>
@@ -164,7 +186,7 @@
   <section class="panel" id="contact">
     <div class="inner">
       <h2>Contact</h2>
-      <div class="card glow-border">📧 lohjiayao@gmail.com<br>📱 +65 9638 3359<br>📍 Tampines, Singapore</div>
+      <div class="card glow-border ai-glow">📧 lohjiayao@gmail.com<br>📱 +65 9638 3359<br>📍 Tampines, Singapore</div>
     </div>
   </section>
 
