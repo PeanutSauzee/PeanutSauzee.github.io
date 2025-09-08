@@ -752,7 +752,40 @@
     }
     const audio=document.getElementById('loveAudio'), btn=document.getElementById('playBtn'), icon=document.getElementById('playIcon'), bar=document.getElementById('progress');
     if(audio && btn){
-      btn.addEventListener('click',()=>{ if(audio.paused){ audio.play(); icon.textContent='⏸'; } else { audio.pause(); icon.textContent='▶'; }});
+      function fadeIn(audio, duration=1200) {
+  audio.volume = 0;
+  audio.play();
+  const step = 100 / (duration / 50); // every 50ms
+  let vol = 0;
+  const fade = setInterval(()=>{
+    vol = Math.min(1, vol + step/100);
+    audio.volume = vol;
+    if(vol >= 1) clearInterval(fade);
+  }, 50);
+}
+
+function fadeOut(audio, duration=1200) {
+  const step = 100 / (duration / 50);
+  let vol = audio.volume;
+  const fade = setInterval(()=>{
+    vol = Math.max(0, vol - step/100);
+    audio.volume = vol;
+    if(vol <= 0){
+      clearInterval(fade);
+      audio.pause();
+    }
+  }, 50);
+}
+
+btn.addEventListener('click',()=>{
+  if(audio.paused){
+    fadeIn(audio, 1500); // fade in over 1.5s
+    icon.textContent='⏸';
+  } else {
+    fadeOut(audio, 1500); // fade out over 1.5s
+    icon.textContent='▶';
+  }
+});
       audio.addEventListener('timeupdate',()=>{ if(audio.duration) bar.style.width=((audio.currentTime/audio.duration)*100)+'%'; });
       audio.addEventListener('ended',()=>{ icon.textContent='▶'; bar.style.width='0%'; });
     }
