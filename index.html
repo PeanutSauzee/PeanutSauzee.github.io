@@ -129,6 +129,14 @@
   .device::before{content:"";position:absolute;inset:-2px;border-radius:16px;background:var(--ai);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:2px}
   .placeholder{position:absolute;inset:12px;border-radius:12px;background:linear-gradient(135deg,rgba(125,145,255,.15),rgba(255,146,178,.12));display:grid;place-items:center;font-weight:700;color:#cfd6e6}
   .meta .chip{margin:0 8px 8px 0}
+
+  #projects .panels {
+  position: relative;
+  min-height: 380px;
+  height: auto;
+  transition: height .3s ease;
+}
+  
 </style>
 </head>
 <body>
@@ -167,7 +175,7 @@
           <div class="stat"><b data-target="6" data-suffix="+ years">6+ yrs</b><br>Work experience</div>
           <div class="stat"><b data-target="2" data-suffix="+ years">2+ yrs</b><br>Ops management</div>
           <div class="stat"><b>SPF (SOC)</b><br>Security Ops background</div>
-          <div class="stat"><b>NTU</b><br>Computing Student (Year 2)</div>
+          <div class="stat"><b>NTU</b><br>Computing Student</div>
         </div>
       </div>
       <div class="about-photo"><img src="profile.jpg" alt="Photo of Jia Yao"></div>
@@ -527,17 +535,41 @@
   });
 })();
 
-  /* Projects tabs */
-  (function(){
-    const tabs=[...document.querySelectorAll('.tab')];
-    const panels=[...document.querySelectorAll('.panelx')];
-    const u=document.getElementById('tabUnderline');
-    const syncUnderline=(el)=>{ const r=el.getBoundingClientRect(); const pr=el.parentElement.getBoundingClientRect(); u.style.left=(r.left-pr.left)+'px'; u.style.width=r.width+'px'; };
-    const activate=(id,el)=>{ panels.forEach(p=>p.classList.toggle('active',p.id===id)); tabs.forEach(t=>t.classList.toggle('active',t===el)); syncUnderline(el); history.replaceState(null,"","#projects"); };
-    tabs.forEach(t=>t.addEventListener('click',()=>activate(t.dataset.target,t)));
-    window.addEventListener('load',()=>syncUnderline(tabs.find(t=>t.classList.contains('active'))));
-    window.addEventListener('resize',()=>syncUnderline(tabs.find(t=>t.classList.contains('active'))));
-  })();
+(function(){
+  const tabs=[...document.querySelectorAll('.tab')];
+  const panels=[...document.querySelectorAll('.panelx')];
+  const u=document.getElementById('tabUnderline');
+  const panelsWrap=document.querySelector('#projects .panels');
+
+  const syncUnderline=(el)=>{
+    const r=el.getBoundingClientRect(), pr=el.parentElement.getBoundingClientRect();
+    u.style.left=(r.left-pr.left)+'px'; u.style.width=r.width+'px';
+  };
+
+  const setWrapHeight = ()=>{
+    const active = document.querySelector('#projects .panelx.active');
+    if(active && panelsWrap){
+      // temporarily reveal to measure if needed
+      const h = active.scrollHeight;
+      panelsWrap.style.height = h + 'px';
+    }
+  };
+
+  const activate=(id,el)=>{
+    panels.forEach(p=>p.classList.toggle('active',p.id===id));
+    tabs.forEach(t=>t.classList.toggle('active',t===el));
+    syncUnderline(el);
+    setWrapHeight();
+    history.replaceState(null,"","#projects");
+  };
+
+  tabs.forEach(t=>t.addEventListener('click',()=>activate(t.dataset.target,t)));
+  window.addEventListener('load',()=>{
+    const current=tabs.find(t=>t.classList.contains('active'))||tabs[0];
+    syncUnderline(current); setWrapHeight();
+  });
+  window.addEventListener('resize',setWrapHeight);
+})();
 
   document.getElementById('year').textContent=new Date().getFullYear();
 
